@@ -1,0 +1,464 @@
+﻿
+<html lang="en">
+
+<head>
+  <title>ABC PoS Pool V1</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A stable, safe, decentralized, easy to use Conflux PoS Pool">
+  <meta name="keywords" content="Conflux, PoS, Pool, ABC, decentralized">
+  <meta content="width=device-width,initial-scale=1.0,maxinmum-scale=1.0,user-scalable=0" name="viewport">
+  <link rel="shortcut icon" href="https://abc-stake-website.pages.dev/favicon.ico">
+  <link href="app/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.staticfile.net/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles/style.css?id=113">
+</head>
+
+<body class="bg-light">
+
+  <nav id="navbar">
+    <div class="flexbox boxone">
+      <img src="https://abc-stake-website.pages.dev/static/images/logo@2x.png" style="cursor: pointer" alt="">
+      <div id="navbarSupportedContent">
+        <ul>
+          <li @click="changeSpace('Core')" class="mr" :class="`${space.value == 'Core' ? 'currnav' : ''}`">
+            Core
+          </li>
+          <li v-if="config.value.eSpaceAddress" @click="changeSpace('eSpace')" :class="`${space.value == 'eSpace' ? 'currnav' : ''}`">
+            eSpace
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id='app'>
+
+    <div class="lc">
+
+      <div class="connectWallet">
+        <div class="walletActions" v-if="!userInfo.connected">
+          <span class="btnA" v-on:click="connectWallet" id="btnConnectWallet">{{viewRender.connectWallet}}</span>
+          <span class="btnA walletConnectButton" v-if="!isCore()" v-on:click="connectWalletConnect">BSIM / WalletConnect</span>
+        </div>
+        <div class="walletActions" v-else>
+          <span class="btnA">
+            {{shortenAccount}}
+          </span>
+          <span class="text-primary" v-if="chainStatus.chainId === 1">&nbsp;  </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 头部描述s -->
+    <div class="pdlr120" :class="!IsPC ? 'ismobile' : ''">
+      <div class="abcp">ABC PoS Pool V1</div>
+      <div class="abcbox">
+        <div class="one">
+          <div class="featuresbox">
+            <div class="features">
+              <div class="t">{{viewRender.Features}}</div>
+           
+              <div v-if="!IsPC" v-on:click="featuresSH = !featuresSH" class="hideShowBtn"></div>
+              <div v-if="featuresSH" class="l" v-for="item in viewRender.FeaturesList"> 
+                <span v-html="item"></span>
+              </div>
+            </div>
+          </div>
+          <div class="stakeRulesbox">
+            <div class="t">{{viewRender.StakeRules}}</div>
+            <div v-if="!IsPC" v-on:click="StakeRulesSH = !StakeRulesSH" class="hideShowBtn"></div>
+            <ul v-if="StakeRulesSH">
+              <li v-for="item in viewRender.StakeRulesList">
+                <div>·</div>
+                <span>
+                  {{item}}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="right-con">
+          <div class="am12">
+            $<span class="amount1" id="priceCell"></span>
+            <!-- <span class="amount2">{{amount2}}</span> -->
+          </div>
+          <div class="ades">{{viewRender.abccutDown}}</div>
+          <div class="anum">
+            <!-- .anum -->
+            <div>
+              <img class="mr12" :src="`./static/images/numbers/${anum[0]}.png`" alt="">
+              <img :src="`./static/images/numbers/${anum[1]}.png`" alt="">
+            </div>
+          </div>
+          <div class="amount3">{{amount3}}</div><p class=" " style="
+    font-size: .18rem;
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+    color: red;
+"><a href="https://sellabc.confluxpos.cn/" style="
+    color: red;
+    text-decoration: none;
+    font-size: large;
+">$ABC Buyback</a></p>
+        </div>
+      
+      </div>
+    </div>
+    <!-- 头部描述e -->
+
+    <!-- 数值展示s -->
+    <div class="svt-item-box" v-bind:class="lang ==='cn' ? 'mt125' : ''" :class="!IsPC ? 'ismobile' : ''">
+      <div class="svt-item">
+        <img src="./static/images/Staking Vault_icon.png" alt="img">
+        <div>
+          <div class="font-a"><span class="" :title="formatedTotalLocked">{{prettyTotalLocked}}</span></div>
+          <span class="intro-title">{{viewRender.StakingVault}}</span>
+        </div>
+      </div>
+      <div class="svt-item">
+        <img src="./static/images/Total Earned_icon.png" alt="img">
+        <div>
+          <div class="font-a"><span class="" :title="formatedTotalRevenue">{{prettyTotalRevenue}}</span></div>
+          <span class="intro-title">{{viewRender.TotalEarned}}</span>
+        </div>
+      </div>
+      <div class="svt-item">
+        <img src="./static/images/Total Earned_icon(1).png" alt="img">
+        <div>
+          <div class="font-a"><span class="">{{poolInfo.apy}}%</span></div>
+          <span class="intro-title">{{viewRender.ExpectedAPY}}</span>
+        </div>
+      </div>
+      <div class="svt-item">
+        <img src="./static/images/Staker Number_icon.png" alt="img">
+        <div>
+          <div class="font-a"><span class="">{{poolInfo.stakerNumber}}</span></div>
+          <span class="intro-title">{{viewRender.StakerNumber}}</span>
+        </div>
+      </div>
+      <div class="svt-item">
+        <img src="./static/images/Pool Status_icon.png" alt="img">
+        <div>
+          <div class="font-a">
+            <span v-if="poolInfo.status.forceRetired === true" class="" style="color:#42b883">Error</span>
+            <span v-else class="" style="color:#42b883">Good</span>
+          </div>
+          <span class="intro-title"> {{viewRender.PoolStatus}}</span>
+        </div>
+      </div>
+      <div class="svt-item">
+        <img src="./static/images/Loading_icon.png" alt="img">
+        <div>
+          <div class="font-a">
+            <a :href="posAddressLink" target="_blank"
+              style="text-decoration:none">{{shortPosAddress}}</a>
+          </div>
+          <span class="intro-title">{{viewRender.PoSAddress}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- 数值展示e -->
+
+    <!-- <div class="row mt-3 border b-shadow rounded-3 p-2" id="rewardChartContainer" style="display:none">
+      <div class="col">
+        <canvas id="rewardChart" height="40"></canvas>
+      </div>
+    </div> -->
+
+    <div class="msr-box" :class="!IsPC ? 'ismobile' : ''">
+      <div :class="!IsPC ? 'pd40' : ''">
+        <div class="mb18">
+          <div><span class="numm">{{userStakedCFX}}</span></div>
+          <span class="tipm"> {{viewRender.MyStaked}}</span>
+        </div>
+        <div class="flexAbc">
+          <input type="number" v-model="stakeCount">
+          <span v-if="!userInfo.connected" class="stake disabled">{{viewRender.Stake}}</span>
+          <span v-else class="stake" v-on:click="stake" :disabled="!userInfo.connected">{{viewRender.Stake}}</span>
+          <!-- <span v-if="!IsPC && userInfo.connected" class="Balance">{{viewRender.Balance}}: {{userInfo.balance}} CFX</span> -->
+        </div>
+        <p class="" v-if="userInfo.connected">{{viewRender.Balance}}: {{userInfo.balance}} CFX</p>
+      </div>
+
+      <div :class="!IsPC ? 'pd40' : ''">
+        <div class="mb18" :class="!IsPC ? 'mb38' : ''">
+          <div><span class="numm">{{userInfo.userInterest}}</span></div>
+          <span class="tipm">{{viewRender.MyRewards}}</span>
+        </div>
+        <div class="flexAbc">
+          <span v-if="!userInfo.connected" class="stake disabled">{{viewRender.Claim}}</span>
+          <span v-else class="stake" v-on:click="claim" :disabled="!userInfo.connected">{{viewRender.Claim}}</span>
+          <!-- <span class="lastRewardTime" v-if="!IsPC && userInfo.connected && poolInfo.lastRewardTime > 0">{{viewRender.LastUpdate}}:
+            {{lastRewardTime}}</span> -->
+        </div>
+        <p class="" v-if="userInfo.connected && poolInfo.lastRewardTime > 0">{{viewRender.LastUpdate}}:
+          {{lastRewardTime}}</p>
+      </div>
+
+      <div :class="!IsPC ? 'pd40' : ''">
+        <div  class="mb18">
+          <div><span class="numm">{{unstakeableCFX}}</span></div>
+          <span class="tipm">{{viewRender.Unstakeable}}  CFX</span>
+        </div>
+        <div class="flexAbc">
+            <input class="" type="number" v-model="unstakeCount">
+            <span v-if="!userInfo.connected" class="stake disabled">{{viewRender.Unstake}}</span>
+            <span v-else class="stake" v-on:click="unstake" :disabled="!userInfo.connected">{{viewRender.Unstake}}</span>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="mb18" :class="!IsPC ? 'mb38' : ''">
+          <div><span class="numm">{{withdrawableCFX}}</span></div>
+          <span class="tipm">{{viewRender.WithdrawableCFX}}</span>
+        </div>
+        <div class="flexAbc">
+          <span v-if="!userInfo.connected" class="stake disabled">{{viewRender.Withdraw}}</span>
+          <span v-else class="stake" v-on:click="withdraw" :disabled="!userInfo.connected">{{viewRender.Withdraw}}</span>
+          <span  class="stake" v-on:click="withdraw2"  style="display: none;">W2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗1 -->
+    <div class="modal fade" id="hashModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header" style="border-bottom: none">
+            <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <i class="bi-check-circle-fill" style="font-size: 40px; color: rgb(100, 237, 107);"></i>
+            <br />
+            <span>Transaction Submitted.</span>
+            <!-- <br/> -->
+            <!-- <span>Transaction Hash: </span> -->
+            <!-- <a :href="txScanLink">{{shortHash}}</a> -->
+            <!-- <a id="hashLink"></a> -->
+            <div style="height: 50px"></div>
+          </div>
+          <!-- <div class="modal-footer" style="border-top: none">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 弹窗2 -->
+    <div class="modal fade" id="withdrawModal" tabindex="-2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: none">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <i class="bi-hourglass-split" style="font-size: 40px; color: cornflowerblue;"></i>
+            <br />
+            <span>The unlock time is estimated by PoW block number is not very accurate. Your votes is still unlocking,
+              please try again several hours later</span>
+            <div style="height: 50px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 表格部分s -->
+    <div v-if="userInfo.connected" class="tbabc" :class="!IsPC ? 'ismobile' : ''">
+      <div class="">
+        <div class="tbtitle"> {{viewRender.Lockingvotes}}</div>
+        <table class="tb">
+          <thead>
+            <tr>
+              <th scope="col">{{viewRender.StakAmount}}</th>
+              <th scope="col">{{viewRender.EndTime}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr>
+              <td>111</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>2111</td>
+              <td>22</td>
+            </tr> -->
+            <tr v-for="item in userInfo.userInQueue">
+              <td style="padding-left: 1em;">{{item.amount}}</td>
+              <td style="padding-left: 1em;">{{item.endTime}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="">
+        <div class="tbtitle">{{viewRender.Unlockingvotes}}</div>
+        <table class="tb" style="margin-bottom: 0;">
+          <thead>
+            <tr>
+              <th scope="col">{{viewRender.StakAmount}}</th>
+              <th scope="col">{{viewRender.EndTime}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in userInfo.userOutOueue">
+              <td style="padding-left: 1em;">{{item.amount}}</td>
+              <td style="padding-left: 1em;">{{item.endTime}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- 表格部分e -->
+
+    <div class="Congratulationsbox" :class="!IsPC ? 'ismobile' : ''">
+      <div class="Congratulationsboxinner">
+        <div class="innnerabc">
+ 
+ <h3><a href='https://v2.confluxpos.cn'>ABC Pool V2</a></h3>
+1. Participants' PoS earnings will be automatically converted to LP of ABC/CFX! <br/>
+2. Hold an LP address to enjoy monthly CFX dividends！ <br/>
+3. APY(Estimate) ＞13%. <br/>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- nft s-->
+    
+    <!-- nft e-->
+
+    <!-- 文章1s -->
+    <div class="Clarificationbox" :class="!IsPC ? 'ismobile' : ''">
+      <div class="Clarification">
+        <h3><a href="https://stake.confluxpos.cn" style="color:#2C70F4" >{{viewRender.Clarification}}</a></h3>
+       
+          <span v-html="viewRender.theactual"></span>
+      </div>
+    </div>
+    <!-- 文章1e -->
+    <div class="footer1box" v-if="false" :class="!IsPC ? 'ismobile' : ''">
+      <div class="footer1">
+        <input class="emailinput" type="email" placeholder="Email address">
+        <input class="phoneinput" type="phone" placeholder="Phone number">
+        <span v-if="!userInfo.connected" class="stake disabled">{{viewRender.Binding}}</span>
+        <span v-else class="stake" v-on:click="bindAddress">{{viewRender.Binding}}</span>
+      </div>
+    </div>
+    <div class="footer2box" :class="!IsPC ? 'ismobile' : ''">
+      <div class="footer2">
+        <div>
+          <img src="./static/images/wechat_logo.png" alt="">
+          {{viewRender.Wechat}}
+        </div>
+        <div>
+          <img src="./static/images/qq_logo.png" alt="">
+          {{viewRender.QQ}}
+        </div>
+        <div>
+          <img src="./static/images/telegram_logo.png" alt="">
+          Telegram
+          <a href="https://t.me/abcpoolchinese" target="_blank">https://t.me/abcpoolchinese</a>
+        </div>
+        <div>
+          <img src="./static/images/twitter_logo.png" alt="">
+          {{viewRender.Twitter}} {{viewRender.TwitterUrl}}
+        </div>
+        
+        <div>
+          <img src="./static/images/telegram_logo.png" alt="">
+          {{viewRender.Telegram}} 
+          <a href="https://t.me/abcdaohome" target="_blank">{{viewRender.TelegramYul}}</a>
+          <button v-on:click="test" style="display: none;;">Test</button>
+          <button v-on:click="detectConflux"  style="display: none;;">CFX</button>
+        </div>
+        <div>
+          <a href="/red/index.html">Red Packet(eSpace)</a>
+        </div>
+        <div>
+          <a href="https://transfertool.confluxpos.cn/">Batch Transfer CFX/ERC20 Token (eSpace)</a>
+        </div>
+      </div>
+    </div>
+    <div class="footerabc" :class="!IsPC ? 'ismobile' : ''"></div>
+  </div>
+  <script>
+    var viewport = document.documentElement;
+    var width = viewport.clientWidth;
+    function IsPCFn(){
+      var userAgentInfo = navigator.userAgent;
+      var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+      var flag = true;  
+      for (var v = 0; v < Agents.length; v++) {  
+          if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }  
+      }  
+      return flag;  
+    }
+    if (IsPCFn()) {
+      var fontSize =100 * width / 1920; // 设计稿字号x实际屏宽/设计稿宽 1rem = 100px  原公式：实际字号/实际屏宽 = 设计字号/设计稿宽
+      viewport.style.fontSize = fontSize.toFixed(1) + 'px';
+      window.onresize = function (param) { 
+        viewport.style.fontSize = fontSize.toFixed(1) + 'px';
+      }
+    } else {
+      var fontSize =100 * width / 750; // 设计稿字号x实际屏宽/设计稿宽 1rem = 100px  原公式：实际字号/实际屏宽 = 设计字号/设计稿宽
+      viewport.style.fontSize = fontSize.toFixed(1) + 'px';
+      window.onresize = function (param) { 
+        viewport.style.fontSize = fontSize.toFixed(1) + 'px';
+      }  
+    }
+  </script>
+  <script src="app/walletconnect-config.js?id=20260919"></script>
+  <script src="app/walletconnect.js?id=20260919"></script>
+    <script>
+var obj={'a1':'app/jquery.min.js','a2':'app/vue.global.js','a3':'app/big.min.js'
+,'a4':'app/js-conflux-sdk.umd.min.js'
+,'a5':'app/ethers-5.2.umd.min.js'
+,'a6':'app/bootstrap.bundle.min.js'
+,'a7':'app/chart.js'
+,'a8':'app/PoolABI.js?id=2256'
+,'a9':'app/PoSPoolContract.js?id=2256'
+,'a10':'app/utils.js?id=2256'
+,'a11002':'app/header.js?id=20260919'
+,'a1219':'app/main.js?id=20260919'
+ }
+
+Object.keys(obj).forEach(key => {
+          // 检查 Local Storage 中是否有缓存的文件
+        var cachedJS = localStorage.getItem(key);
+        var scriptElement = document.createElement('script');
+
+        if (cachedJS) {
+            // 如果有缓存的文件，从 Local Storage 加载
+            scriptElement.innerHTML = cachedJS;
+            document.body.appendChild(scriptElement);
+        } else {
+            // 如果没有缓存的文件，从服务器加载并缓存
+            fetch('/'+ obj[key])
+                .then(response => response.text())
+                .then(data => {
+                    localStorage.setItem(key, data);
+                    scriptElement.innerHTML = data;
+                    document.body.appendChild(scriptElement);
+                });
+        }
+});
+ 
+    </script>
+ <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8a80814d1d119460","version":"2024.7.0","r":1,"token":"814c3fdb0c654ab69fbf6d43d750d353","serverTiming":{"name":{"cfL4":true}}}' crossorigin="anonymous"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9410a6e9a87fa970","version":"2025.4.0-1-g37f21b1","r":1,"serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"814c3fdb0c654ab69fbf6d43d750d353","b":1}' crossorigin="anonymous"></script>
+</body>
+
+</html>
+<style>
+  .active {
+    color: #000 ! important;
+    background-color: yellow;
+  }
+</style>
