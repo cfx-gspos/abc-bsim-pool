@@ -59,15 +59,8 @@
   }
 
   function buildQrModalOptions(config) {
-    const qrModalOptions = {
-      // 禁用移动端的“全部钱包”全屏目录，统一直接进入 BIM 二维码。
-      enableMobileFullScreen: false,
-      // 站点只面向 BIM：隐藏 AppKit 的“全部钱包”入口及钱包搜索页。
-      allWallets: 'HIDE',
-      explorerRecommendedWalletIds: 'NONE',
-    };
+    const qrModalOptions = { enableMobileFullScreen: true };
     const wallet = config.bsimWallet || {};
-    const walletId = String(wallet.id || 'bim-wallet').trim();
     const native = String(wallet.native || '').trim();
     const universal = String(wallet.universal || '').trim();
     const explorerId = String(wallet.explorerId || '').trim();
@@ -77,7 +70,7 @@
       if (native) links.native = native;
       if (universal) links.universal = universal;
       qrModalOptions.mobileWallets = [{
-        id: walletId,
+        id: String(wallet.id || 'bim-wallet').trim(),
         name: String(wallet.name || 'BIM Wallet').trim(),
         links,
       }];
