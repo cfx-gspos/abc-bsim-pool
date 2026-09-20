@@ -632,6 +632,7 @@ border: 1px solid #C8D0D9;
 
 
 .Congratulationsbox{
+  box-sizing: border-box;
   width: 100%;
   background: url(../static/images/bg.png) no-repeat;
   font-size: .18rem;
@@ -939,3 +940,192 @@ border: 1px solid #C8D0D9;
   margin: 0 auto;
   margin-bottom: .3rem;
 }
+
+/* BIM 钱包 eSpace 专版 */
+:root {
+  --bsim-blue: #2f6df6;
+  --bsim-cyan: #18b8d8;
+  --bsim-ink: #102346;
+  --bsim-surface: rgba(255, 255, 255, 0.9);
+}
+
+body,
+body.mobileAbc {
+  background:
+    radial-gradient(circle at 8% 4%, rgba(47, 109, 246, 0.2), transparent 32%),
+    radial-gradient(circle at 92% 18%, rgba(24, 184, 216, 0.16), transparent 30%),
+    linear-gradient(180deg, #f4f8ff 0%, #eef5ff 42%, #ffffff 100%);
+  background-attachment: fixed;
+  color: var(--bsim-ink);
+}
+
+#navbar {
+  margin: .22rem .56rem 0;
+  padding: 0 .36rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(47, 109, 246, 0.12);
+  border-radius: .18rem;
+  box-shadow: 0 .14rem .5rem rgba(39, 86, 170, 0.1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.boxone {
+  align-items: center;
+  padding: .24rem .08rem;
+}
+
+.bsim-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .14rem;
+  color: var(--bsim-ink);
+  text-decoration: none;
+}
+
+.bsim-brand:hover {
+  color: var(--bsim-ink);
+}
+
+.bsim-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: .46rem;
+  height: .46rem;
+  color: #fff;
+  font-size: .26rem;
+  font-weight: 900;
+  border-radius: .14rem;
+  background: linear-gradient(135deg, var(--bsim-blue), var(--bsim-cyan));
+  box-shadow: 0 .08rem .22rem rgba(47, 109, 246, 0.3);
+}
+
+.bsim-brand-name {
+  font-size: .27rem;
+  font-weight: 900;
+  letter-spacing: .04rem;
+}
+
+.bsim-network {
+  padding: .06rem .13rem;
+  color: #36609e;
+  font-size: .12rem;
+  font-weight: 700;
+  border: 1px solid rgba(47, 109, 246, 0.16);
+  border-radius: 999px;
+  background: #edf4ff;
+}
+
+.connectWallet .walletActions {
+  top: .41rem;
+  right: 1.05rem;
+}
+
+.connectWallet .btnA.walletConnectButton {
+  color: #fff;
+  background: linear-gradient(135deg, var(--bsim-blue), #4b84ff 58%, var(--bsim-cyan));
+  border-color: transparent;
+  border-radius: .12rem;
+  box-shadow: 0 .1rem .28rem rgba(47, 109, 246, 0.28);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.connectWallet .btnA.walletConnectButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .15rem .34rem rgba(47, 109, 246, 0.34);
+}
+
+.pdlr120 {
+  padding-top: .7rem;
+}
+
+.bsim-kicker {
+  margin-bottom: .12rem;
+  color: #4a78ba;
+  font-size: .14rem;
+  font-weight: 800;
+  letter-spacing: .08rem;
+}
+
+.abcp {
+  color: var(--bsim-ink);
+  text-shadow: none;
+  -webkit-text-stroke: 0;
+  background: linear-gradient(90deg, #183f88, var(--bsim-blue), var(--bsim-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.featuresbox,
+.stakeRulesbox {
+  padding: .28rem .34rem;
+  border: 1px solid rgba(47, 109, 246, 0.1);
+  border-radius: .16rem;
+  background: var(--bsim-surface);
+  box-shadow: 0 .12rem .4rem rgba(39, 86, 170, 0.08);
+}
+
+.featuresbox .t,
+.stakeRulesbox .t,
+.svt-item .font-a,
+.msr-box .numm {
+  color: var(--bsim-ink);
+}
+
+.svt-item,
+.msr-box,
+.tbabc,
+.Clarification {
+  border: 1px solid rgba(47, 109, 246, 0.1);
+  border-radius: .16rem;
+  background: var(--bsim-surface);
+  box-shadow: 0 .12rem .4rem rgba(39, 86, 170, 0.09);
+}
+
+.stake {
+  background: linear-gradient(135deg, var(--bsim-blue), #4b84ff);
+  box-shadow: 0 .06rem .16rem rgba(47, 109, 246, 0.2);
+}
+
+@media (max-width: 768px) {
+  #navbar,
+  .mobileAbc #navbar {
+    margin: .18rem .3rem 0;
+    padding: 0 .22rem;
+  }
+
+  .mobileAbc .boxone {
+    padding: .28rem 0;
+  }
+
+  .bsim-brand-name {
+    font-size: .34rem;
+  }
+
+  .bsim-network {
+    font-size: .18rem;
+  }
+
+  .mobileAbc .lc {
+    margin-top: .35rem;
+  }
+
+  .mobileAbc .connectWallet .btnA {
+    width: calc(100% - .6rem);
+    text-align: center;
+    border-radius: .14rem;
+  }
+
+  .pdlr120 {
+    padding-top: .45rem;
+  }
+
+  .bsim-kicker {
+    text-align: center;
+    font-size: .2rem;
+  }
+}
+
+.Congratulationsbox,.msr-box,.tbabc{box-sizing:border-box}.mobileAbc .right-con{margin:.15rem auto 0}.right-con>p{position:absolute!important;right:0!important;bottom:.18rem!important;left:0!important;z-index:2!important;margin:0!important;text-align:center!important;line-height:1.2!important}.right-con>p a{color:#d8343f!important;font-size:.18rem!important;font-weight:800!important;text-decoration:none!important}.svt-item-box.ismobile{box-sizing:border-box;width:6.9rem;margin:.5rem auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.24rem;overflow:visible}.svt-item-box.ismobile .svt-item{box-sizing:border-box;width:auto;min-width:0;min-height:1.46rem;padding:.27rem .2rem;margin:0;float:none;align-items:center}.svt-item-box.ismobile .svt-item:nth-child(2n){float:none}.svt-item-box.ismobile .svt-item:last-of-type,.svt-item-box.ismobile .svt-item:nth-of-type(5){margin:0}.svt-item-box.ismobile .svt-item>div{min-width:0}.svt-item-box.ismobile .svt-item img{flex:0 0 auto;width:.52rem;height:.48rem;margin-right:.14rem;object-fit:contain}.svt-item-box.ismobile .font-a{overflow:hidden;margin-bottom:.12rem;font-size:.25rem;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}.svt-item-box.ismobile .font-a a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.svt-item-box.ismobile .intro-title{display:block;font-size:.24rem;line-height:1.25}.Clarificationbox.ismobile,.Clarificationbox.ismobile .Clarification,.ismobile.footer2box,.ismobile .footer2{box-sizing:border-box}

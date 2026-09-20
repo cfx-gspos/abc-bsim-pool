@@ -37,7 +37,7 @@ const TESTNET = {
 let CURRENT = MAINNET;
 
 var spaceStore = Vue.reactive({
-  value: 'Core'
+  value: 'eSpace'
 });
 
 const configStore = Vue.reactive({

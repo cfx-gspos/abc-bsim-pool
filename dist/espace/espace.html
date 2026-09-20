@@ -5,8 +5,8 @@
     <title>ABC PoS Pool</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A stable, safe, decentralized, easy to use Conflux PoS Pool">
-    <meta name="keywords" content="Conflux, PoS, Pool, ABC, decentralized"><link rel="shortcut icon" href="favicon.ico">
+    <meta name="description" content="ABC PoS Pool with BIM Wallet support on Conflux eSpace">
+    <meta name="keywords" content="ABC, BIM Wallet, Conflux, eSpace, PoS, Pool, decentralized"><link rel="shortcut icon" href="favicon.ico">
 <link href="app/bootstrap.min.css" rel="stylesheet" integrity="sha384-ttbblHVjiiDPojqapKRQ488sZO1I/ceo1w2AXALA/iYVz389m+F2EXu2Go8VClG4" crossorigin="anonymous">
 <link rel="stylesheet" href="app/bootstrap-icons.css">
 <link rel="stylesheet" href="styles/style.css">
@@ -16,21 +16,9 @@
       <div class="container">
         <a class="navbar-brand" href="#">
           <img src="/favicon.ico" alt="" width="30" height="30" class="d-inline-block align-text-top">
-          ABC  Pool
+          ABC PoS Pool
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item" @click="changeSpace('Core')">
-              <a :class="`nav-link ${space.value == 'Core' ? 'active' : ''}`" href="#">Core</a>
-            </li>
-            <li v-if="config.value.eSpaceAddress" class="nav-item" @click="changeSpace('eSpace')">
-              <a :class="`nav-link ${space.value == 'eSpace' ? 'active' : ''}`" href="#">eSpace</a>
-            </li>
-          </ul>
-        </div>
+        <span class="badge rounded-pill bg-light text-primary">Conflux eSpace</span>
       </div>
     </nav>
 
@@ -39,8 +27,7 @@
       <div class="row justify-content-end mt-3">
         <div class="col-md-6 col-12 d-flex justify-content-end gap-2">
           <template v-if="!userInfo.connected">
-            <button class="btn btn-primary" v-on:click="connectWallet">Connect Wallet</button>
-            <button v-if="!isCore()" class="btn btn-outline-primary" v-on:click="connectWalletConnect">BSIM / WalletConnect</button>
+            <button class="btn btn-primary" v-on:click="connectWalletConnect">BIM / WalletConnect</button>
           </template>
           <div v-else>
             <button type="button" class="btn btn-outline-primary">

@@ -52,8 +52,7 @@ const TESTNET = {
 let CURRENT = MAINNET;
 
 var spaceStore = Vue.reactive({
-  //value: 'eSpace'
-  value: 'Core'
+  value: 'eSpace'
 });
 
 const configStore = Vue.reactive({
@@ -76,13 +75,8 @@ const navbarOption = {
   },
 
   mounted() {
-    if (!localStorage.getItem('space')) {
-      localStorage.setItem('space', 'Core');
-    }
-    const lastSpace = localStorage.getItem('space');
-    if (lastSpace && lastSpace !== this.space.value) {
-      this.changeSpace(lastSpace);
-    }
+    // BSIM 版本仅支持 eSpace，覆盖旧版本可能残留的 Core 选择。
+    this.changeSpace('eSpace');
   }
 };
 

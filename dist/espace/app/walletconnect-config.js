@@ -9,7 +9,7 @@
     // Universal Link / Explorer ID 尚未在官方包中确认，留空时仍可扫码连接。
     bsimWallet: {
       id: 'bim-wallet',
-      name: 'BIM Wallet (BSIM)',
+      name: 'BIM Wallet',
       native: 'bimwallet://',
       universal: '',
       explorerId: '',

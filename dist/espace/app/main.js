@@ -342,7 +342,7 @@ const PoSPool = {
 
     async connectWalletConnect() {
       if (this.isCore()) {
-        alert('BSIM / WalletConnect is currently available for eSpace');
+        alert('BIM / WalletConnect is currently available for eSpace');
         return;
       }
       try {

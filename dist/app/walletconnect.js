@@ -71,7 +71,7 @@
       if (universal) links.universal = universal;
       qrModalOptions.mobileWallets = [{
         id: String(wallet.id || 'bim-wallet').trim(),
-        name: String(wallet.name || 'BIM Wallet (BSIM)').trim(),
+        name: String(wallet.name || 'BIM Wallet').trim(),
         links,
       }];
     }

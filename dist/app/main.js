@@ -42,7 +42,6 @@ setTimeout(function () {
 
     let hashModal = new bootstrap.Modal(document.getElementById('hashModal'), {});
     let withdrawModal = new bootstrap.Modal(document.getElementById('withdrawModal'), {});
-    var COUNTER = 0;
     function adjustUnlockTime(time) {
       return 1.1 / 86400 * time;
     }
@@ -67,7 +66,7 @@ setTimeout(function () {
                 ],
                 StakeRules: 'Stake Rules:',
                 StakeRulesList: [
-                  'The lock period of Stake/Unstake is 13+1 day(May need another 2~3 hours)',
+                  'The eSpace lock period of Stake/Unstake is 16+3 days (May need another 2~3 hours)',
                   'The reward will updated every hour',
                   'The Stake/Unstake CFX amount must be multiple of 1000',
                   'Performance fee is 8% of the PoS reward',
@@ -193,7 +192,7 @@ setTimeout(function () {
             ],
             StakeRules: 'Stake Rules:',
             StakeRulesList: [
-              'The lock period of Stake/Unstake is Core 13+1 days ,eSpace 16+3 days (May need another 2~3 hours)',
+              'The eSpace lock period of Stake/Unstake is 16+3 days (May need another 2~3 hours)',
               'The reward will updated every half an hour',
               'The Stake/Unstake CFX amount must be multiple of 1000',
               'Performance fee is 8% of the PoS reward',
@@ -299,10 +298,6 @@ setTimeout(function () {
           //             console.log(313);
           //     $('#priceCell').val(data.price.toFixed(6))
           // });
-          if (COUNTER < 1 && (window.conflux || window.ethereum)) {
-            $('#btnConnectWallet').click();
-          }
-          COUNTER++;
           try {
             if (_that.poolInfo.totalLocked == 0) {
               await _that.loadAllUserInfo();
@@ -679,7 +674,7 @@ setTimeout(function () {
 
         async connectWalletConnect() {
           if (this.isCore()) {
-            alert('BSIM / WalletConnect is currently available for eSpace');
+            alert('BIM / WalletConnect is currently available for eSpace');
             return;
           }
           try {
