@@ -12,10 +12,18 @@
   <link href="app/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-ttbblHVjiiDPojqapKRQ488sZO1I/ceo1w2AXALA/iYVz389m+F2EXu2Go8VClG4" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.staticfile.net/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="styles/style.css?id=20260920-mobile">
+  <link rel="stylesheet" href="styles/style.css?id=20260920-top-site-link">
 </head>
 
 <body class="bg-light">
+
+  <div class="mainSiteBar">
+    <a class="mainSiteLink" href="https://confluxpos.cn/" target="_blank" rel="noopener noreferrer"
+      aria-label="Use Core or eSpace wallet on the main ABC site">
+      <span class="mainSiteLinkNetwork">Core / eSpace Wallet</span>
+      <span class="mainSiteLinkIcon" aria-hidden="true">↗</span>
+    </a>
+  </div>
 
   <nav id="navbar">
     <div class="flexbox boxone">
@@ -32,14 +40,16 @@
     <div class="lc">
 
       <div class="connectWallet">
-        <div class="walletActions" v-if="!userInfo.connected">
-          <span class="btnA walletConnectButton" v-on:click="connectWalletConnect">BIM / WalletConnect</span>
-        </div>
-        <div class="walletActions" v-else>
-          <span class="btnA">
-            {{shortenAccount}}
-          </span>
-          <span class="text-primary" v-if="chainStatus.chainId === 1">&nbsp;  </span>
+        <div class="walletActions">
+          <template v-if="!userInfo.connected">
+            <span class="btnA walletConnectButton" v-on:click="connectWalletConnect">BIM / WalletConnect</span>
+          </template>
+          <template v-else>
+            <span class="btnA">
+              {{shortenAccount}}
+            </span>
+            <span class="text-primary" v-if="chainStatus.chainId === 1">&nbsp;  </span>
+          </template>
         </div>
       </div>
     </div>
