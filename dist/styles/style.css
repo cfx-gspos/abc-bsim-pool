@@ -941,31 +941,43 @@ border: 1px solid #C8D0D9;
   margin-bottom: .3rem;
 }
 
-/* BIM 钱包 eSpace 专版 */
+/* BIM 钱包 eSpace 专版：酒红与香槟金的企业财富视觉 */
 :root {
-  --bsim-blue: #2f6df6;
-  --bsim-cyan: #18b8d8;
-  --bsim-ink: #102346;
-  --bsim-surface: rgba(255, 255, 255, 0.9);
+  --bsim-primary: #7b2d3a;
+  --bsim-primary-light: #a8505d;
+  --bsim-primary-soft: #f8edef;
+  --bsim-accent: #c39a5b;
+  --bsim-accent-light: #e4cca5;
+  --bsim-ink: #3e4850;
+  --bsim-muted: #75808a;
+  --bsim-border: rgba(123, 45, 58, 0.14);
+  --bsim-surface: rgba(255, 255, 255, 0.93);
 }
 
 body,
 body.mobileAbc {
   background:
-    radial-gradient(circle at 8% 4%, rgba(47, 109, 246, 0.2), transparent 32%),
-    radial-gradient(circle at 92% 18%, rgba(24, 184, 216, 0.16), transparent 30%),
-    linear-gradient(180deg, #f4f8ff 0%, #eef5ff 42%, #ffffff 100%);
+    linear-gradient(180deg, rgba(252, 250, 246, 0.72), rgba(252, 250, 246, 0.88) 56%, #fff 100%),
+    url(../static/images/wealth-corporate-bg-v1.png) center top / cover no-repeat;
   background-attachment: fixed;
   color: var(--bsim-ink);
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+.mainSiteLink,
+.bsim-brand,
+#app,
+#app * {
+  font-family: inherit;
 }
 
 #navbar {
   margin: .22rem .56rem 0;
   padding: 0 .36rem;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(47, 109, 246, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--bsim-border);
   border-radius: .18rem;
-  box-shadow: 0 .14rem .5rem rgba(39, 86, 170, 0.1);
+  box-shadow: 0 .14rem .5rem rgba(78, 57, 49, 0.08);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
@@ -997,8 +1009,8 @@ body.mobileAbc {
   font-size: .26rem;
   font-weight: 900;
   border-radius: .14rem;
-  background: linear-gradient(135deg, var(--bsim-blue), var(--bsim-cyan));
-  box-shadow: 0 .08rem .22rem rgba(47, 109, 246, 0.3);
+  background: linear-gradient(135deg, var(--bsim-primary), var(--bsim-primary-light));
+  box-shadow: 0 .08rem .22rem rgba(123, 45, 58, 0.2);
 }
 
 .bsim-brand-name {
@@ -1009,12 +1021,12 @@ body.mobileAbc {
 
 .bsim-network {
   padding: .06rem .13rem;
-  color: #36609e;
+  color: #7b2d3a;
   font-size: .12rem;
   font-weight: 700;
-  border: 1px solid rgba(47, 109, 246, 0.16);
+  border: 1px solid rgba(123, 45, 58, 0.18);
   border-radius: 999px;
-  background: #edf4ff;
+  background: var(--bsim-primary-soft);
 }
 
 .connectWallet .walletActions {
@@ -1034,13 +1046,13 @@ body.mobileAbc {
   justify-content: center;
   gap: .08rem;
   padding: .09rem .12rem .09rem .16rem;
-  color: #5b78a4;
+  color: var(--bsim-muted);
   font-size: .13rem;
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  border: 1px solid rgba(47, 109, 246, 0.14);
+  border: 1px solid rgba(41, 70, 111, 0.14);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px);
@@ -1049,15 +1061,15 @@ body.mobileAbc {
 }
 
 .mainSiteLink:hover {
-  color: #345d9b;
-  border-color: rgba(47, 109, 246, 0.28);
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 .06rem .18rem rgba(39, 86, 170, 0.1);
+  color: var(--bsim-ink);
+  border-color: rgba(195, 154, 91, 0.48);
+  background: var(--bsim-primary-soft);
+  box-shadow: 0 .06rem .18rem rgba(41, 70, 111, 0.1);
   transform: translateY(-2px);
 }
 
 .mainSiteLink:focus-visible {
-  outline: 3px solid rgba(47, 109, 246, 0.24);
+  outline: 3px solid rgba(195, 154, 91, 0.28);
   outline-offset: 3px;
 }
 
@@ -1067,30 +1079,30 @@ body.mobileAbc {
   justify-content: center;
   width: .21rem;
   height: .21rem;
-  color: var(--bsim-blue);
+  color: #fff;
   font-size: .13rem;
   border-radius: 50%;
-  background: rgba(47, 109, 246, 0.1);
+  background: var(--bsim-accent);
 }
 
 .mainSiteLinkNetwork {
-  color: #345d9b;
+  color: var(--bsim-ink);
   font-weight: 800;
   letter-spacing: .01rem;
 }
 
 .connectWallet .btnA.walletConnectButton {
   color: #fff;
-  background: linear-gradient(135deg, var(--bsim-blue), #4b84ff 58%, var(--bsim-cyan));
+  background: linear-gradient(135deg, var(--bsim-primary), var(--bsim-primary-light));
   border-color: transparent;
   border-radius: .12rem;
-  box-shadow: 0 .1rem .28rem rgba(47, 109, 246, 0.28);
+  box-shadow: 0 .1rem .28rem rgba(123, 45, 58, 0.2);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .connectWallet .btnA.walletConnectButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 .15rem .34rem rgba(47, 109, 246, 0.34);
+  box-shadow: 0 .15rem .34rem rgba(123, 45, 58, 0.28);
 }
 
 .pdlr120 {
@@ -1099,7 +1111,7 @@ body.mobileAbc {
 
 .bsim-kicker {
   margin-bottom: .12rem;
-  color: #4a78ba;
+  color: #966d35;
   font-size: .14rem;
   font-weight: 800;
   letter-spacing: .08rem;
@@ -1109,7 +1121,7 @@ body.mobileAbc {
   color: var(--bsim-ink);
   text-shadow: none;
   -webkit-text-stroke: 0;
-  background: linear-gradient(90deg, #183f88, var(--bsim-blue), var(--bsim-cyan));
+  background: linear-gradient(90deg, #68212e 0%, var(--bsim-primary) 52%, var(--bsim-accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1118,10 +1130,10 @@ body.mobileAbc {
 .featuresbox,
 .stakeRulesbox {
   padding: .28rem .34rem;
-  border: 1px solid rgba(47, 109, 246, 0.1);
+  border: 1px solid var(--bsim-border);
   border-radius: .16rem;
   background: var(--bsim-surface);
-  box-shadow: 0 .12rem .4rem rgba(39, 86, 170, 0.08);
+  box-shadow: 0 .12rem .4rem rgba(41, 70, 111, 0.07);
 }
 
 .featuresbox .t,
@@ -1135,15 +1147,62 @@ body.mobileAbc {
 .msr-box,
 .tbabc,
 .Clarification {
-  border: 1px solid rgba(47, 109, 246, 0.1);
+  border: 1px solid var(--bsim-border);
   border-radius: .16rem;
   background: var(--bsim-surface);
-  box-shadow: 0 .12rem .4rem rgba(39, 86, 170, 0.09);
+  box-shadow: 0 .12rem .4rem rgba(41, 70, 111, 0.08);
 }
 
 .stake {
-  background: linear-gradient(135deg, var(--bsim-blue), #4b84ff);
-  box-shadow: 0 .06rem .16rem rgba(47, 109, 246, 0.2);
+  color: #fff;
+  background: linear-gradient(135deg, var(--bsim-primary), var(--bsim-primary-light));
+  box-shadow: 0 .06rem .16rem rgba(123, 45, 58, 0.18);
+}
+
+.stakeRulesbox ul li div,
+.featuresbox a,
+.Clarification a.votinglist,
+.Clarification a.mobile,
+.innnerabc a,
+.svt-item .font-a a,
+.tbabc a,
+.text-primary {
+  color: #8f5f24 !important;
+}
+
+.svt-item img {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(34%) saturate(1987%) hue-rotate(310deg) brightness(90%) contrast(86%);
+}
+
+.hideShowBtn {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(34%) saturate(1987%) hue-rotate(310deg) brightness(90%) contrast(86%);
+}
+
+.anum img {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(33%) saturate(835%) hue-rotate(359deg) brightness(88%) contrast(87%) drop-shadow(0 .04rem .025rem rgba(91, 43, 31, 0.28));
+}
+
+.abcbox .right-con {
+  background-image:
+    linear-gradient(135deg, #6b2330, var(--bsim-primary-light)),
+    url(../static/images/ciunt_down.png);
+  background-blend-mode: color;
+}
+
+.Congratulationsbox {
+  background-image:
+    linear-gradient(rgba(123, 45, 58, 0.34), rgba(195, 154, 91, 0.22)),
+    url(../static/images/bg.png);
+  background-blend-mode: color;
+}
+
+.innnerabc {
+  background: var(--bsim-primary-soft);
+}
+
+.footerabc,
+.ismobile.footerabc {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.84), rgba(195, 154, 91, 0.12));
 }
 
 @media (max-width: 768px) {
@@ -1206,6 +1265,13 @@ body.mobileAbc {
   .bsim-kicker {
     text-align: center;
     font-size: .2rem;
+  }
+
+  .Congratulationsbox.ismobile {
+    background-image:
+      linear-gradient(rgba(123, 45, 58, 0.34), rgba(195, 154, 91, 0.22)),
+      url(../static/images/mobile/bg2@2x.png);
+    background-blend-mode: color;
   }
 }
 
