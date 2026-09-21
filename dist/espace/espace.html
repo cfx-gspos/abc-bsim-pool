@@ -27,18 +27,20 @@
       <div class="row justify-content-end mt-3">
         <div class="col-md-6 col-12 d-flex justify-content-end gap-2">
           <template v-if="!userInfo.connected">
-            <button class="btn btn-primary" v-on:click="connectWalletConnect">BIM / WalletConnect</button>
+            <button class="btn btn-primary" v-on:click="connectWalletConnect" :disabled="walletConnecting || walletDisconnecting">{{walletConnecting ? 'Connecting…' : walletDisconnecting ? 'Disconnecting…' : 'BIM / WalletConnect'}}</button>
           </template>
           <div v-else>
-            <button type="button" class="btn btn-outline-primary">
+            <span class="d-inline-block me-2" :title="userInfo.account">
               {{shortenAccount}}
-            </button>
+            </span>
+            <button type="button" class="btn btn-outline-primary" v-on:click="disconnectWallet">Disconnect</button>
 
             <span class="text-primary" v-if="chainStatus.chainId === 1">&nbsp; TestNet</span>
           </div>
         </div>
       </div>
 
+      <p v-if="walletNotice" class="mt-3 text-end small" role="status">{{walletNotice}}</p>
       <div class="row mt-3">
         <div class="col text-center">
           <h1 style="color: cornflowerblue">ABC PoS Pool</h1>
@@ -314,8 +316,8 @@
     <script src="app/utils.js?id=2256"></script>
     <script src="app/header.js?id=2256"></script>
     <script src="app/walletconnect-config.js?id=20260919"></script>
-    <script src="app/walletconnect.js?id=20260919"></script>
-    <script src="app/main.js?id=20260919"></script>
+    <script src="/app/walletconnect.js?id=20260921-wallet-session"></script>
+    <script src="app/main.js?id=20260921-wallet-session"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9RSB2BS8T"></script>
     <script>

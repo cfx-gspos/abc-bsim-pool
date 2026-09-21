@@ -1105,6 +1105,51 @@ body.mobileAbc {
   box-shadow: 0 .15rem .34rem rgba(123, 45, 58, 0.28);
 }
 
+.connectWallet .walletAccount {
+  padding: .16rem .2rem;
+  font-size: .2rem;
+  font-weight: 700;
+  color: var(--bsim-ink);
+  background: var(--bsim-primary-soft);
+  border: 1px solid var(--bsim-border);
+  border-radius: .12rem;
+}
+
+.connectWallet .btnA.walletDisconnectButton {
+  color: var(--bsim-primary);
+  background: #fff;
+  border: 1px solid var(--bsim-border);
+  box-shadow: none;
+}
+
+.connectWallet .btnA.walletDisconnectButton:hover {
+  border-color: var(--bsim-primary);
+  background: var(--bsim-primary-soft);
+}
+
+.connectWallet .btnA:focus-visible {
+  outline: 2px solid var(--bsim-primary);
+  outline-offset: 3px;
+}
+
+.connectWallet .btnA:disabled {
+  cursor: wait;
+  opacity: .65;
+  transform: none;
+}
+
+.walletNotice {
+  margin: .2rem 1.2rem 0;
+  font-size: .18rem;
+  line-height: 1.5;
+  color: var(--bsim-primary);
+  text-align: right;
+}
+
+.walletNotice[v-cloak] {
+  display: none;
+}
+
 .pdlr120 {
   padding-top: .7rem;
 }
@@ -1244,6 +1289,21 @@ body.mobileAbc {
     width: 100%;
     gap: .18rem;
     padding: 0 .3rem;
+  }
+
+  .mobileAbc .connectWallet .walletAccount {
+    font-size: .26rem;
+  }
+
+  .mobileAbc .connectWallet .btnA.walletDisconnectButton {
+    width: auto;
+    padding: .2rem .3rem;
+  }
+
+  .mobileAbc .walletNotice {
+    margin: 0 .3rem .2rem;
+    font-size: .24rem;
+    text-align: center;
   }
 
   .mobileAbc .mainSiteBar {

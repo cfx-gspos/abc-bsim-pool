@@ -70,6 +70,9 @@ const PoSPool = {
       txhash: '',
       eSpaceBlockNumber: 0,
       eSpaceAccount: '',
+      walletConnecting: false,
+      walletDisconnecting: false,
+      walletNotice: '',
       coreAccount: '',
     }
   },
@@ -282,6 +285,43 @@ const PoSPool = {
       }
     },
 
+    resetESpaceConnection(message = '') {
+      if (this._eSpaceEventProvider?.removeListener && this._eSpaceProviderHandlers) {
+        for (const [event, handler] of Object.entries(this._eSpaceProviderHandlers)) {
+          this._eSpaceEventProvider.removeListener(event, handler);
+        }
+      }
+      this._eSpaceEventProvider = null;
+      this._eSpaceProviderHandlers = null;
+      this._walletAttempt = (this._walletAttempt || 0) + 1;
+      this._connectAttempt = (this._connectAttempt || 0) + 1;
+      this.walletConnecting = false;
+      this.eSpaceAccount = '';
+      this.resetUserInfo();
+      this.stakeCount = 0;
+      this.unstakeCount = 0;
+      this.walletNotice = message;
+      if (this.contract?.eSpaceContract) {
+        const readProvider = new ethers.providers.JsonRpcProvider(CURRENT.eSpaceRpc);
+        this.contract.ethClient = readProvider;
+        this.contract.eSpaceContract = this.contract.eSpaceContract.connect(readProvider);
+      }
+    },
+
+    async disconnectWallet() {
+      if (this.walletDisconnecting) return;
+      this.walletDisconnecting = true;
+      this.resetESpaceConnection('Disconnecting wallet…');
+      try {
+        await window.ABCWalletConnect.disconnect();
+        this.walletNotice = 'Wallet disconnected.';
+      } catch (_) {
+        this.walletNotice = 'Disconnected on this page. Please also disconnect this site in BIM Wallet if it still appears connected.';
+      } finally {
+        this.walletDisconnecting = false;
+      }
+    },
+
     bindESpaceProviderEvents(externalProvider) {
       if (!externalProvider?.on || this._eSpaceEventProvider === externalProvider) return;
 
@@ -292,8 +332,7 @@ const PoSPool = {
       }
 
       const resetESpaceAccount = () => {
-        this.eSpaceAccount = '';
-        if (!this.isCore()) this.resetUserInfo();
+        this.resetESpaceConnection();
       };
       const handlers = {
         accountsChanged: async (accounts) => {
@@ -303,6 +342,7 @@ const PoSPool = {
           }
           this.eSpaceAccount = accounts[0];
           if (!this.isCore()) {
+            if (this.userInfo.account !== accounts[0]) this.resetUserInfo();
             this.userInfo.account = accounts[0];
             this.userInfo.connected = true;
             await this.loadAllUserInfo();
@@ -314,7 +354,7 @@ const PoSPool = {
             alert('Please switch wallet to Conflux eSpace network');
           }
         },
-        disconnect: resetESpaceAccount,
+        disconnect: (error) => this.resetESpaceConnection(error?.message || 'Wallet disconnected.'),
       };
 
       externalProvider.on('accountsChanged', handlers.accountsChanged);
@@ -325,34 +365,51 @@ const PoSPool = {
     },
 
     async connectESpaceProvider(externalProvider) {
+      const attempt = (this._walletAttempt || 0) + 1;
+      this._walletAttempt = attempt;
+      this.bindESpaceProviderEvents(externalProvider);
       const accounts = await externalProvider.request({ method: 'eth_requestAccounts' });
       if (!accounts?.length) throw new Error('Request account failed');
 
       await this.ensureESpaceNetwork(externalProvider);
+      if (attempt !== this._walletAttempt || (externalProvider.isSessionActive && !externalProvider.isSessionActive())) {
+        throw new Error('Wallet session expired or disconnected. Please reconnect BIM Wallet.');
+      }
       const provider = new ethers.providers.Web3Provider(externalProvider, 'any');
       this.contract.setESpaceProvider(provider);
-      this.bindESpaceProviderEvents(externalProvider);
 
       this.eSpaceAccount = accounts[0];
       this.userInfo.account = accounts[0];
       this.userInfo.connected = true;
       this.eSpaceBlockNumber = await provider.getBlockNumber();
+      if (attempt !== this._walletAttempt) return;
       await this.loadAllUserInfo();
     },
 
     async connectWalletConnect() {
+      if (this.walletConnecting || this.walletDisconnecting) return;
       if (this.isCore()) {
         alert('BIM / WalletConnect is currently available for eSpace');
         return;
       }
+      this.walletConnecting = true;
+      const connectAttempt = (this._connectAttempt || 0) + 1;
+      this._connectAttempt = connectAttempt;
+      this.walletNotice = '';
       try {
         const externalProvider = await window.ABCWalletConnect.connect({
           chainId: CURRENT.eNetId,
           rpcUrl: CURRENT.eSpaceRpc,
         });
+        if (connectAttempt !== this._connectAttempt) return;
         await this.connectESpaceProvider(externalProvider);
       } catch (error) {
-        if (error.code !== 4001) alert(error.message || 'WalletConnect failed');
+        if (connectAttempt !== this._connectAttempt) return;
+        const message = error.code === 4001 ? 'Wallet connection cancelled.' : (error.message || 'Wallet connection failed.');
+        if (!this.userInfo.connected) this.resetESpaceConnection(message);
+        else this.walletNotice = message;
+      } finally {
+        if (connectAttempt === this._connectAttempt) this.walletConnecting = false;
       }
     },
 
@@ -418,16 +475,21 @@ const PoSPool = {
     },
 
     async loadUserInfo() {
-      const userSummary = await this.contract.userSummary(this.userInfo.account);
+      const userInfo = this.userInfo;
+      if (!userInfo.connected) return;
+      const userSummary = await this.contract.userSummary(userInfo.account);
+      if (this.userInfo !== userInfo) return;
       this.userInfo.votes = userSummary.votes;
       this.userInfo.available = userSummary.available;
       this.userInfo.locked = userSummary.locked;
       this.userInfo.unlocked = userSummary.unlocked;
 
-      const userInterest = await this.contract.userInterest(this.userInfo.account);
+      const userInterest = await this.contract.userInterest(userInfo.account);
+      if (this.userInfo !== userInfo) return;
       this.userInfo.userInterest = trimPoints(TreeGraph.Drip(userInterest.toString()).toCFX());
 
-      const balance = await this.contract.getBalance(this.userInfo.account);
+      const balance = await this.contract.getBalance(userInfo.account);
+      if (this.userInfo !== userInfo) return;
       this.userInfo.balance = trimPoints(TreeGraph.Drip(balance.toString()).toCFX());
     },
 
@@ -465,13 +527,21 @@ const PoSPool = {
     },
 
     async loadUserLockingList() {
-      let list = await this.contract.userInQueue(this.userInfo.account);
-      this.userInfo.userInQueue = list.map(this.mapQueueItem);
+      const userInfo = this.userInfo;
+      if (!userInfo.connected) return;
+      const list = await this.contract.userInQueue(userInfo.account);
+      if (this.userInfo !== userInfo) return;
+      const queue = await Promise.all(list.map(item => this.mapQueueItem(item)));
+      if (this.userInfo === userInfo) userInfo.userInQueue = queue;
     },
 
     async loadUserUnlockingList() {
-      let list = await this.contract.userOutQueue(this.userInfo.account);
-      this.userInfo.userOutOueue = list.map(this.mapQueueItem);
+      const userInfo = this.userInfo;
+      if (!userInfo.connected) return;
+      const list = await this.contract.userOutQueue(userInfo.account);
+      if (this.userInfo !== userInfo) return;
+      const queue = await Promise.all(list.map(item => this.mapQueueItem(item)));
+      if (this.userInfo === userInfo) userInfo.userOutOueue = queue;
     },
 
     async loadUserNFTInfo() {

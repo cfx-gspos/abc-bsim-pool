@@ -12,13 +12,13 @@
   <link href="app/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.staticfile.net/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="styles/style.css?id=20260921-corporate-wealth-preview">
+  <link rel="stylesheet" href="styles/style.css?id=20260921-wallet-session">
 </head>
 
 <body class="bg-light">
 
   <div class="mainSiteBar">
-    <a class="mainSiteLink" href="https://confluxpos.cn/" target="_blank" rel="noopener noreferrer"
+    <a class="mainSiteLink" href="https://confluxpos.cn/" rel="noreferrer"
       aria-label="Use Core or eSpace wallet on the main ABC site">
       <span class="mainSiteLinkNetwork">Core / eSpace Wallet</span>
       <span class="mainSiteLinkIcon" aria-hidden="true">↗</span>
@@ -42,12 +42,13 @@
       <div class="connectWallet">
         <div class="walletActions">
           <template v-if="!userInfo.connected">
-            <span class="btnA walletConnectButton" v-on:click="connectWalletConnect">BIM / WalletConnect</span>
+            <button type="button" class="btnA walletConnectButton" v-on:click="connectWalletConnect" :disabled="walletConnecting || walletDisconnecting">{{walletConnecting ? 'Connecting…' : walletDisconnecting ? 'Disconnecting…' : 'BIM / WalletConnect'}}</button>
           </template>
           <template v-else>
-            <span class="btnA">
+            <span class="walletAccount" :title="userInfo.account">
               {{shortenAccount}}
             </span>
+            <button type="button" class="btnA walletDisconnectButton" v-on:click="disconnectWallet">Disconnect</button>
             <span class="text-primary" v-if="chainStatus.chainId === 1">&nbsp;  </span>
           </template>
         </div>
@@ -55,6 +56,7 @@
     </div>
 
     <!-- 头部描述s -->
+    <p v-if="walletNotice" v-cloak class="walletNotice" role="status">{{walletNotice}}</p>
     <div class="pdlr120" :class="!IsPC ? 'ismobile' : ''">
       <div class="bsim-kicker">BIM WALLET · CONFLUX eSPACE</div>
       <div class="abcp">ABC PoS Pool</div>
@@ -417,7 +419,7 @@
     }
   </script>
   <script src="app/walletconnect-config.js?id=20260919"></script>
-  <script src="app/walletconnect.js?id=20260919"></script>
+  <script src="app/walletconnect.js?id=20260921-wallet-session"></script>
     <script>
 var obj={'a1':'app/jquery.min.js','a2':'app/vue.global.js','a3':'app/big.min.js'
 ,'a4':'app/js-conflux-sdk.umd.min.js'
@@ -428,7 +430,7 @@ var obj={'a1':'app/jquery.min.js','a2':'app/vue.global.js','a3':'app/big.min.js'
 ,'a9':'app/PoSPoolContract.js?id=2256'
 ,'a10':'app/utils.js?id=2256'
 ,'a11002':'app/header.js?id=20260919'
-,'a1219':'app/main.js?id=20260919'
+,'a1219':'app/main.js?id=20260921-wallet-session'
  }
 
 // 这些脚本存在严格的依赖顺序，必须等待前一个脚本加载完成后再加载下一个。
