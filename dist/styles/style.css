@@ -941,25 +941,24 @@ border: 1px solid #C8D0D9;
   margin-bottom: .3rem;
 }
 
-/* BIM 钱包 eSpace 专版：简洁的企业编辑部视觉 */
+/* BIM 钱包 eSpace 专版：酒红与香槟金的企业财富视觉 */
 :root {
-  --bsim-primary: #242326;
-  --bsim-primary-light: #454249;
-  --bsim-primary-soft: #f4f2ef;
-  --bsim-accent: #f0b90b;
-  --bsim-accent-dark: #8a6500;
-  --bsim-accent-light: #fff6d6;
-  --bsim-ink: #1d1c1f;
-  --bsim-muted: #666168;
-  --bsim-border: #e4dfda;
-  --bsim-surface: #fff;
+  --bsim-primary: #7b2d3a;
+  --bsim-primary-light: #a8505d;
+  --bsim-primary-soft: #f8edef;
+  --bsim-accent: #c39a5b;
+  --bsim-accent-light: #e4cca5;
+  --bsim-ink: #3e4850;
+  --bsim-muted: #75808a;
+  --bsim-border: rgba(123, 45, 58, 0.14);
+  --bsim-surface: rgba(255, 255, 255, 0.93);
 }
 
 body,
 body.mobileAbc {
   background:
-    radial-gradient(circle at 88% 6%, rgba(240, 185, 11, 0.07), transparent 24rem),
-    #faf9f6;
+    linear-gradient(180deg, rgba(252, 250, 246, 0.72), rgba(252, 250, 246, 0.88) 56%, #fff 100%),
+    url(../static/images/wealth-corporate-bg-v1.png) center top / cover no-repeat;
   background-attachment: fixed;
   color: var(--bsim-ink);
   font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
@@ -975,10 +974,10 @@ body.mobileAbc {
 #navbar {
   margin: .22rem .56rem 0;
   padding: 0 .36rem;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.88);
   border: 1px solid var(--bsim-border);
-  border-radius: .13rem;
-  box-shadow: 0 .08rem .3rem rgba(42, 33, 35, 0.07);
+  border-radius: .18rem;
+  box-shadow: 0 .14rem .5rem rgba(78, 57, 49, 0.08);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
@@ -1006,12 +1005,12 @@ body.mobileAbc {
   justify-content: center;
   width: .46rem;
   height: .46rem;
-  color: var(--bsim-ink);
+  color: #fff;
   font-size: .26rem;
   font-weight: 900;
-  border-radius: .08rem;
-  background: linear-gradient(145deg, #ffd95c, var(--bsim-accent));
-  box-shadow: 0 .05rem .12rem rgba(143, 106, 0, 0.18);
+  border-radius: .14rem;
+  background: linear-gradient(135deg, var(--bsim-primary), var(--bsim-primary-light));
+  box-shadow: 0 .08rem .22rem rgba(123, 45, 58, 0.2);
 }
 
 .bsim-brand-name {
@@ -1022,12 +1021,12 @@ body.mobileAbc {
 
 .bsim-network {
   padding: .06rem .13rem;
-  color: var(--bsim-accent-dark);
+  color: #7b2d3a;
   font-size: .12rem;
   font-weight: 700;
-  border: 1px solid #ead99b;
+  border: 1px solid rgba(123, 45, 58, 0.18);
   border-radius: 999px;
-  background: var(--bsim-accent-light);
+  background: var(--bsim-primary-soft);
 }
 
 .connectWallet .walletActions {
@@ -1053,24 +1052,24 @@ body.mobileAbc {
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  border: 1px solid var(--bsim-border);
+  border: 1px solid rgba(41, 70, 111, 0.14);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: transform .2s ease, color .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
 
 .mainSiteLink:hover {
-  color: var(--bsim-accent-dark);
-  border-color: #dbc77b;
-  background: #fff;
-  box-shadow: 0 .06rem .18rem rgba(102, 79, 14, 0.1);
+  color: var(--bsim-ink);
+  border-color: rgba(195, 154, 91, 0.48);
+  background: var(--bsim-primary-soft);
+  box-shadow: 0 .06rem .18rem rgba(41, 70, 111, 0.1);
   transform: translateY(-2px);
 }
 
 .mainSiteLink:focus-visible {
-  outline: 3px solid rgba(240, 185, 11, 0.25);
+  outline: 3px solid rgba(195, 154, 91, 0.28);
   outline-offset: 3px;
 }
 
@@ -1080,7 +1079,7 @@ body.mobileAbc {
   justify-content: center;
   width: .21rem;
   height: .21rem;
-  color: var(--bsim-ink);
+  color: #fff;
   font-size: .13rem;
   border-radius: 50%;
   background: var(--bsim-accent);
@@ -1093,17 +1092,17 @@ body.mobileAbc {
 }
 
 .connectWallet .btnA.walletConnectButton {
-  color: var(--bsim-ink);
-  background: linear-gradient(135deg, #ffd95c, var(--bsim-accent));
+  color: #fff;
+  background: linear-gradient(135deg, var(--bsim-primary), var(--bsim-primary-light));
   border-color: transparent;
-  border-radius: .09rem;
-  box-shadow: 0 .07rem .16rem rgba(143, 106, 0, 0.18);
+  border-radius: .12rem;
+  box-shadow: 0 .1rem .28rem rgba(123, 45, 58, 0.2);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .connectWallet .btnA.walletConnectButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 .1rem .24rem rgba(143, 106, 0, 0.24);
+  box-shadow: 0 .15rem .34rem rgba(123, 45, 58, 0.28);
 }
 
 .pdlr120 {
@@ -1112,7 +1111,7 @@ body.mobileAbc {
 
 .bsim-kicker {
   margin-bottom: .12rem;
-  color: var(--bsim-muted);
+  color: #966d35;
   font-size: .14rem;
   font-weight: 800;
   letter-spacing: .08rem;
@@ -1122,48 +1121,19 @@ body.mobileAbc {
   color: var(--bsim-ink);
   text-shadow: none;
   -webkit-text-stroke: 0;
-  padding-left: .18rem;
-  border-left: .07rem solid var(--bsim-accent);
-  background: none;
+  background: linear-gradient(90deg, #68212e 0%, var(--bsim-primary) 52%, var(--bsim-accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: var(--bsim-ink);
+  -webkit-text-fill-color: transparent;
 }
 
 .featuresbox,
 .stakeRulesbox {
-  padding: .3rem .36rem;
+  padding: .28rem .34rem;
   border: 1px solid var(--bsim-border);
-  border-radius: .13rem;
+  border-radius: .16rem;
   background: var(--bsim-surface);
-  box-shadow: 0 .08rem .26rem rgba(48, 38, 40, 0.055);
-}
-
-.featuresbox .t,
-.stakeRulesbox .t {
-  position: relative;
-  padding-left: .17rem;
-}
-
-.featuresbox .t::before,
-.stakeRulesbox .t::before {
-  position: absolute;
-  top: .03rem;
-  bottom: .03rem;
-  left: 0;
-  width: .04rem;
-  border-radius: 999px;
-  background: var(--bsim-accent);
-  content: "";
-}
-
-.featuresbox .l,
-.stakeRulesbox ul li span {
-  color: #4d494f;
-}
-
-.stakeRulesbox ul li div {
-  color: var(--bsim-accent);
+  box-shadow: 0 .12rem .4rem rgba(41, 70, 111, 0.07);
 }
 
 .featuresbox .t,
@@ -1178,15 +1148,15 @@ body.mobileAbc {
 .tbabc,
 .Clarification {
   border: 1px solid var(--bsim-border);
-  border-radius: .13rem;
+  border-radius: .16rem;
   background: var(--bsim-surface);
-  box-shadow: 0 .08rem .24rem rgba(48, 38, 40, 0.055);
+  box-shadow: 0 .12rem .4rem rgba(41, 70, 111, 0.08);
 }
 
 .stake {
-  color: var(--bsim-ink);
-  background: linear-gradient(135deg, #ffd95c, var(--bsim-accent));
-  box-shadow: 0 .05rem .12rem rgba(143, 106, 0, 0.16);
+  color: #fff;
+  background: linear-gradient(135deg, var(--bsim-primary), var(--bsim-primary-light));
+  box-shadow: 0 .06rem .16rem rgba(123, 45, 58, 0.18);
 }
 
 .stakeRulesbox ul li div,
@@ -1197,46 +1167,33 @@ body.mobileAbc {
 .svt-item .font-a a,
 .tbabc a,
 .text-primary {
-  color: var(--bsim-accent) !important;
+  color: #8f5f24 !important;
 }
 
 .svt-item img {
-  filter: brightness(0) saturate(100%) invert(69%) sepia(87%) saturate(1079%) hue-rotate(4deg) brightness(101%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(19%) sepia(34%) saturate(1987%) hue-rotate(310deg) brightness(90%) contrast(86%);
 }
 
 .hideShowBtn {
-  filter: brightness(0) saturate(100%) invert(69%) sepia(87%) saturate(1079%) hue-rotate(4deg) brightness(101%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(19%) sepia(34%) saturate(1987%) hue-rotate(310deg) brightness(90%) contrast(86%);
 }
 
 .anum img {
-  filter: brightness(0) saturate(100%) invert(58%) sepia(99%) saturate(1622%) hue-rotate(8deg) brightness(99%) contrast(102%) drop-shadow(0 .05rem .025rem rgba(112, 76, 0, 0.22));
+  filter: brightness(0) saturate(100%) invert(75%) sepia(33%) saturate(835%) hue-rotate(359deg) brightness(88%) contrast(87%) drop-shadow(0 .04rem .025rem rgba(91, 43, 31, 0.28));
 }
 
 .abcbox .right-con {
   background-image:
-    linear-gradient(135deg, #fff8df, #f2df9d),
+    linear-gradient(135deg, #6b2330, var(--bsim-primary-light)),
     url(../static/images/ciunt_down.png);
   background-blend-mode: color;
-  border: 1px solid var(--bsim-border);
-  border-radius: .13rem;
-  box-shadow: 0 .12rem .34rem rgba(105, 83, 23, 0.11);
-  overflow: hidden;
-}
-
-.abcbox .right-con .am12 {
-  color: #2f8e70;
-}
-
-.abcbox .right-con .ades,
-.abcbox .right-con .amount3 {
-  color: #70520a;
 }
 
 .Congratulationsbox {
   background-image:
-    linear-gradient(rgba(240, 185, 11, 0.07), rgba(240, 185, 11, 0.02)),
+    linear-gradient(rgba(123, 45, 58, 0.34), rgba(195, 154, 91, 0.22)),
     url(../static/images/bg.png);
-  background-blend-mode: soft-light;
+  background-blend-mode: color;
 }
 
 .innnerabc {
@@ -1245,7 +1202,7 @@ body.mobileAbc {
 
 .footerabc,
 .ismobile.footerabc {
-  background: #f2efec;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.84), rgba(195, 154, 91, 0.12));
 }
 
 @media (max-width: 768px) {
@@ -1312,10 +1269,10 @@ body.mobileAbc {
 
   .Congratulationsbox.ismobile {
     background-image:
-      linear-gradient(rgba(240, 185, 11, 0.07), rgba(240, 185, 11, 0.02)),
+      linear-gradient(rgba(123, 45, 58, 0.34), rgba(195, 154, 91, 0.22)),
       url(../static/images/mobile/bg2@2x.png);
-    background-blend-mode: soft-light;
+    background-blend-mode: color;
   }
 }
 
-.Congratulationsbox,.msr-box,.tbabc{box-sizing:border-box}.mobileAbc .right-con{margin:.15rem auto 0}.right-con>p{position:absolute!important;right:0!important;bottom:.18rem!important;left:0!important;z-index:2!important;margin:0!important;text-align:center!important;line-height:1.2!important}.right-con>p a{color:var(--bsim-accent-dark)!important;font-size:.18rem!important;font-weight:800!important;text-decoration:none!important}.svt-item-box.ismobile{box-sizing:border-box;width:6.9rem;margin:.5rem auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.24rem;overflow:visible}.svt-item-box.ismobile .svt-item{box-sizing:border-box;width:auto;min-width:0;min-height:1.46rem;padding:.27rem .2rem;margin:0;float:none;align-items:center}.svt-item-box.ismobile .svt-item:nth-child(2n){float:none}.svt-item-box.ismobile .svt-item:last-of-type,.svt-item-box.ismobile .svt-item:nth-of-type(5){margin:0}.svt-item-box.ismobile .svt-item>div{min-width:0}.svt-item-box.ismobile .svt-item img{flex:0 0 auto;width:.52rem;height:.48rem;margin-right:.14rem;object-fit:contain}.svt-item-box.ismobile .font-a{overflow:hidden;margin-bottom:.12rem;font-size:.25rem;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}.svt-item-box.ismobile .font-a a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.svt-item-box.ismobile .intro-title{display:block;font-size:.24rem;line-height:1.25}.Clarificationbox.ismobile,.Clarificationbox.ismobile .Clarification,.ismobile.footer2box,.ismobile .footer2{box-sizing:border-box}
+.Congratulationsbox,.msr-box,.tbabc{box-sizing:border-box}.mobileAbc .right-con{margin:.15rem auto 0}.right-con>p{position:absolute!important;right:0!important;bottom:.18rem!important;left:0!important;z-index:2!important;margin:0!important;text-align:center!important;line-height:1.2!important}.right-con>p a{color:#d8343f!important;font-size:.18rem!important;font-weight:800!important;text-decoration:none!important}.svt-item-box.ismobile{box-sizing:border-box;width:6.9rem;margin:.5rem auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.24rem;overflow:visible}.svt-item-box.ismobile .svt-item{box-sizing:border-box;width:auto;min-width:0;min-height:1.46rem;padding:.27rem .2rem;margin:0;float:none;align-items:center}.svt-item-box.ismobile .svt-item:nth-child(2n){float:none}.svt-item-box.ismobile .svt-item:last-of-type,.svt-item-box.ismobile .svt-item:nth-of-type(5){margin:0}.svt-item-box.ismobile .svt-item>div{min-width:0}.svt-item-box.ismobile .svt-item img{flex:0 0 auto;width:.52rem;height:.48rem;margin-right:.14rem;object-fit:contain}.svt-item-box.ismobile .font-a{overflow:hidden;margin-bottom:.12rem;font-size:.25rem;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}.svt-item-box.ismobile .font-a a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.svt-item-box.ismobile .intro-title{display:block;font-size:.24rem;line-height:1.25}.Clarificationbox.ismobile,.Clarificationbox.ismobile .Clarification,.ismobile.footer2box,.ismobile .footer2{box-sizing:border-box}
